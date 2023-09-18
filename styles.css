@@ -226,6 +226,7 @@ body{
         position: fixed;
         height: 50%;
         width: 80%;
+        display: none;
     }
 
     .modalBtns{

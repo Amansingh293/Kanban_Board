@@ -14,6 +14,8 @@ const ticketHolderArray = [];
 
 const fixedColors = ['red' , 'yellow' , 'green' , 'grey'];
 
+let creationMode = false;
+
 let deleteCheck = false;
 
 let currentSelectedColor;
@@ -73,6 +75,10 @@ headerSection.addEventListener('click' , (e)=>{
     
     // console.log(element);
     
+    if(creationMode){
+        return;
+    }
+
     if( element.classList.contains('fa-plus')){
 
         if( deleteCheck){
@@ -84,6 +90,7 @@ headerSection.addEventListener('click' , (e)=>{
         const ticketColor = modalConatainer.children[1].children[0];
         classRemover(modalButtons,'selector');
         ticketColor.classList.add('selector');
+        creationMode = true;
     }
    
     if(element.classList.contains('fa-trash')){
@@ -120,10 +127,12 @@ modalConatainer.addEventListener('click' , (e)=>{
     classRemover(target.parentElement.children , 'selector');
 
     target.classList.add('selector');
-    // console.log(target.classList)
+
     currentSelectedColor = target.classList[1];
 
     console.log(target.parentElement.previousElementSibling);
+
+   
 })
 
 /************************Submiting Modal Container*************************/
@@ -158,6 +167,8 @@ modalConatainer.addEventListener('keypress' , (e)=>{
     const createdTicket = createTicket(selectedByUserColor , textValue);
 
     mainContainer.append(createdTicket);
+
+    creationMode = false;
 
 });
 

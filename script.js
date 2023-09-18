@@ -93,6 +93,7 @@ createBtn.addEventListener('click' , (e)=>{
         else{
             deleteCheck = false;
             element.style.color = 'flex';
+            element.style.color = 'black';
         }
     }
     // console.log(ticketColor)

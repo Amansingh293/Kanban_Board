@@ -92,7 +92,7 @@ createBtn.addEventListener('click' , (e)=>{
         }
         else{
             deleteCheck = false;
-            element.style.color = 'inherit';
+            element.style.color = 'flex';
         }
     }
     // console.log(ticketColor)

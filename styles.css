@@ -79,34 +79,6 @@ body{
     font-size: 2rem;
 }
 
-@media screen and (max-width : 590px) {
-    .header{
-        /* flex-direction: column; */
-        height: 22rem;
-        justify-content: center;
-    }
-    .toolBox-container{
-        /* margin-top: 6%; */
-        flex-direction: column;
-        justify-content: space-evenly;
-        height: 20rem;
-        width: 10rem;
-        gap: 10px;
-    }
-    .colors{
-        height: 20%;
-        width: 70%;
-    }
-    .crudButtons{
-        flex-direction: column;
-        width: 6rem;
-        height: 7rem;
-    }
-    
-}
-
-
-
 .main-container{
     display: flex;
     justify-content: space-evenly;
@@ -206,6 +178,73 @@ body{
     border-radius: 10px;
 }
 
+
+
+@media screen and (max-width : 590px) {
+    .header{
+        /* flex-direction: column; */
+        height: 10rem;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .toolBox-container{
+        margin-top: 4%;
+        margin-left: 0;
+        flex-direction: row;
+        justify-content: space-evenly;
+        height: 70%;
+        width: 30%rem;
+        gap: 10px;
+    }
+    .colors{
+        height: 70%;
+        width: 20%;
+    }
+    .crudButtons{
+        flex-direction: row;
+        width: 22%;
+        height: 70%;
+        margin-bottom: 2%;
+    }
+
+    .modal-container{
+        top: 11rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        height: 50%;
+        width: 80%;
+    }
+
+    .modalBtns{
+        height: 24%;
+        width: 100%;
+        background-color: var(--darkGrey);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    .textModal{
+        height: 76%;
+        width: 100%;
+        background-color: var(--x-lightGrey);
+        font-size: x-large;
+        padding: 2%;
+    }
+    .modal-button{
+        height: 70%;
+        width: 22%;
+        border: 1px solid var(--darkGrey);
+        border-radius: 10px;
+    }
+    .fa-lock,.fa-unlock{
+        padding: 1% 4% 4%;
+        font-size:x-large;
+     }
+     
+}
 .selector{
     border: 7px solid var(--x-lightGrey);
 }

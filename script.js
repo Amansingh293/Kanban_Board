@@ -2,9 +2,11 @@ const mainContainer = document.querySelector('.main-container');
 
 const modalConatainer = document.querySelector('.modal-container');
 
-const createBtn = document.querySelector('.crudButtons');
+const headerSection = document.querySelector('.header');
 
 const modalButtons = document.querySelectorAll('.modal-button');
+
+const deleteBtn = headerSection.querySelector('.delete');
 
 const uid = new ShortUniqueId({ length: 6 });
 
@@ -65,7 +67,7 @@ function createTicket(color , task) {
 
 /**************************Creating Ticket*************************/
 
-createBtn.addEventListener('click' , (e)=>{
+headerSection.addEventListener('click' , (e)=>{
 
     const element = e.target;
     
@@ -86,13 +88,16 @@ createBtn.addEventListener('click' , (e)=>{
    
     if(element.classList.contains('fa-trash')){
 
+        if( ticketHolderArray.length === 0){
+            alert("No Tickets To Delete !!");
+            return;
+        }
         if( deleteCheck === false){
             deleteCheck = true;
             element.style.color = 'red';
         }
         else{
             deleteCheck = false;
-            element.style.color = 'flex';
             element.style.color = 'black';
         }
     }
@@ -163,7 +168,7 @@ modalConatainer.addEventListener('keypress' , (e)=>{
 
 /********************************changing colors of ticket on click******************************/
 
-mainContainer.addEventListener('click' , (e)=>{
+mainContainer.addEventListener('click' , (e)=>{ 
 
     const element = e.target;
 
@@ -174,6 +179,10 @@ mainContainer.addEventListener('click' , (e)=>{
         if( confirm('Ticket Selected Now Will Be Deleted !!')){
             delTicket.remove();
             ticketArrRemover(delId);
+        }
+        if(ticketHolderArray.length === 0){
+            deleteCheck = false;
+            deleteBtn.style.color = 'inherit';
         }
         return;
     }

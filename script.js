@@ -145,6 +145,18 @@ headerSection.addEventListener("click", (e) => {
   }
 });
 
+headerSection.addEventListener('dblclick' , (e)=>{
+
+  const element = e.target;
+
+  if( element.classList.contains('colors') === false){
+    return;
+  }
+  const totalTickets = document.querySelectorAll(".ticket-container");
+
+  filterFunc(totalTickets , undefined);
+  
+})
 /************************Opening Modal Click*************************/
 
 modalConatainer.addEventListener("click", (e) => {
@@ -329,7 +341,11 @@ function filterFunc(arr, currentColor) {
 
     if (currentElemColor === currentColor) {
       currentElem.style.display = "flex";
-    } else {
+    } 
+    else if(currentColor === undefined){
+      currentElem.style.display = "flex";
+    }
+    else{
       currentElem.style.display = "none";
     }
   }

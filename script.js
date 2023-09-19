@@ -4,6 +4,8 @@ const modalConatainer = document.querySelector('.modal-container');
 
 const headerSection = document.querySelector('.header');
 
+const toolColors = headerSection.querySelectorAll('.colors');
+
 const modalButtons = document.querySelectorAll('.modal-button');
 
 const deleteBtn = headerSection.querySelector('.delete');
@@ -22,7 +24,7 @@ let currentSelectedColor;
 
 let lockButton = true;
 
-const lockUnlockButton = mainContainer.querySelector('ticket-editable>div');
+let isAnyColorSelected = false;
 
 function createElement(elementType = 'div' , properties , ...children){
 
@@ -39,7 +41,7 @@ function createElement(elementType = 'div' , properties , ...children){
     return element;
 
 }
-function createTicket(color , task) {
+function createTicket(color = 'red', task) {
 
     const id = uid.rnd();
 
@@ -67,13 +69,14 @@ function createTicket(color , task) {
 
 }
 
+
 /**************************Creating Ticket*************************/
 
 headerSection.addEventListener('click' , (e)=>{
 
     const element = e.target;
     
-    // console.log(element);
+    // //console.log(element);
     
     if(creationMode){
         return;
@@ -85,12 +88,20 @@ headerSection.addEventListener('click' , (e)=>{
             alert('First Turn Off Delete Button !!');
             return;
         }
+        currentSelectedColor = 'red';
+        
+        modalConatainer.style.display = 'flex';
 
-        modalConatainer.style.display = 'inherit';
         const ticketColor = modalConatainer.children[1].children[0];
+
         classRemover(modalButtons,'selector');
+
         ticketColor.classList.add('selector');
+
         creationMode = true;
+
+        modalConatainer.children[0].focus();
+
     }
    
     if(element.classList.contains('fa-trash')){
@@ -108,8 +119,24 @@ headerSection.addEventListener('click' , (e)=>{
             element.style.color = 'black';
         }
     }
-    // console.log(ticketColor)
-   
+
+    if( element.parentElement.classList.contains('toolBox-container')){
+
+        const clickedColor = element.classList[1];
+
+        // //console.log(clickedColor)
+        const toolColors = element.parentElement.children;
+        
+        //console.log(toolColors);
+
+        const totalTickets = document.querySelectorAll('.ticket-container');
+
+        //console.log(totalTickets);
+
+        filterFunc(totalTickets , clickedColor);
+
+    }
+
 });
 
 /************************Opening Modal Click*************************/
@@ -119,20 +146,20 @@ modalConatainer.addEventListener('click' , (e)=>{
 
     const target = e.target;
 
-    // console.log(target)
+    //console.log(target)
 
-    if( target.localName !== 'button'){
+    if( target.localName !== 'button' ){
         return;
     }
     classRemover(target.parentElement.children , 'selector');
 
     target.classList.add('selector');
 
-    currentSelectedColor = target.classList[1];
+    if( target.classList.contains('modal-button') ){
+        currentSelectedColor = target.classList[1];
+    }
 
-    console.log(target.parentElement.previousElementSibling);
-
-   
+    
 })
 
 /************************Submiting Modal Container*************************/
@@ -141,9 +168,13 @@ modalConatainer.addEventListener('click' , (e)=>{
 modalConatainer.addEventListener('keypress' , (e)=>{
 
     const element = e.target;
-    // console.log(element);
-    if( e.key !== 'Enter' && e.shiftKey !== true){
+    // //console.log(e);
+
+    if( e.key !== 'Enter' ){
         return;
+    }
+    else if( e.key === 'Enter' && e.shiftKey === true){
+        return
     }
 
     modalConatainer.style.display = 'none';
@@ -156,20 +187,11 @@ modalConatainer.addEventListener('keypress' , (e)=>{
 
    modalConatainer.children[0].value = '';
 
-    let selectedByUserColor;
-
-    if(currentSelectedColor){
-        selectedByUserColor = currentSelectedColor;
-    }
-    else{
-        selectedByUserColor = 'red';
-    }
-    const createdTicket = createTicket(selectedByUserColor , textValue);
+    const createdTicket = createTicket(currentSelectedColor , textValue);
 
     mainContainer.append(createdTicket);
 
     creationMode = false;
-
 });
 
 
@@ -177,7 +199,7 @@ modalConatainer.addEventListener('keypress' , (e)=>{
 /********************************Working on created ticket******************************/
 
 
-/********************************changing colors of ticket on click******************************/
+/********************************Changing Colors of ticket on click******************************/
 
 mainContainer.addEventListener('click' , (e)=>{ 
 
@@ -186,7 +208,7 @@ mainContainer.addEventListener('click' , (e)=>{
     if(deleteCheck){
         const delTicket = element.parentElement;
         const delId = element.parentElement.children[1].innerText;
-        // console.log(delTicket);
+        // //console.log(delTicket);
         if( confirm('Ticket Selected Now Will Be Deleted !!')){
             delTicket.remove();
             ticketArrRemover(delId);
@@ -206,7 +228,7 @@ mainContainer.addEventListener('click' , (e)=>{
             let indexCalibrator = fixedColors[(i+1)%fixedColors.length];
             
             if(currentColor === fixedColors[i]){
-                console.log(indexCalibrator)
+                //console.log(indexCalibrator)
                 element.classList.remove(currentColor);
                 element.classList.add(indexCalibrator);
                 break;
@@ -222,7 +244,7 @@ mainContainer.addEventListener('click' , (e)=>{
         element.classList.add('fa-unlock');
         textEditable = element.parentElement.parentElement.children[2];
         textEditable.disabled = false;
-        console.log(textEditable);
+        //console.log(textEditable);
         return;
     }
     
@@ -230,11 +252,11 @@ mainContainer.addEventListener('click' , (e)=>{
         element.classList.remove('fa-unlock');
         element.classList.add('fa-lock');
         textEditable = element.parentElement.parentElement.children[2];
-        console.log(textEditable);
+        //console.log(textEditable);
         textEditable.disabled = true;
         const currentId = element.parentElement.parentElement.children[1].innerText;
         ticketArrUpdater(currentId ,textEditable.value);
-        console.log(ticketHolderArray);
+        //console.log(ticketHolderArray);
         return
     }
 
@@ -252,7 +274,7 @@ function ticketArrUpdater( tId , text){
     for(let i=0; i<ticketHolderArray.length; i++){
 
         if( ticketHolderArray[i].ticketId === tId){
-            console.log(ticketHolderArray[i]);
+            //console.log(ticketHolderArray[i]);
             ticketHolderArray[i].ticketTask = text;
             break;
         }
@@ -275,12 +297,37 @@ function ticketArrRemover(id){
 }
 
 
-
-
-
-
 function classRemover(array , value){
+
+    if( value === null){
+
+        for(let i=0 ; i<array.length; i++){
+            const currentValue = array[i].classList[1];
+            array[i].classList.remove(currentValue);
+        }
+        return;
+    }
     for(let i = 0; i<array.length; i++ ){
         array[i].classList.remove(value);
     }
+
+}
+
+
+function filterFunc(arr , currentColor){
+
+    for(let i=0; i<arr.length ; i++){
+
+        const currentElemColor = arr[i].children[0].classList[1];
+
+        const currentElem = arr[i];
+
+        if( currentElemColor === currentColor){
+            currentElem.style.display = 'flex';
+        }
+        else{
+            currentElem.style.display = 'none';
+        }
+    }
+    return;
 }

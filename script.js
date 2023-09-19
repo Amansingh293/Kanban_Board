@@ -86,8 +86,8 @@ function createTicket(tktId, color, task, initializer) {
 
   if (initializer !== null) {
     let ticket = { ticketId: id, ticketColor: color, ticketTask: task };
-
     ticketHolderArray.push(ticket);
+    setLocalStorage();
   }
 
   return mainTicket;

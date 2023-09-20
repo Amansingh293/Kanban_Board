@@ -268,6 +268,12 @@ mainContainer.addEventListener("click", (e) => {
 
     textEditable.disabled = false;
 
+    let textLength = textEditable.value.length;
+    
+    textEditable.focus();
+
+    textEditable.setSelectionRange(textLength , textLength);
+
     return;
   }
 

@@ -209,7 +209,12 @@ modalConatainer.addEventListener("keypress", (e) => {
 mainContainer.addEventListener("click", (e) => {
   const element = e.target;
 
+   if (creationMode) {
+    return;
+  }
+  
   /**************handling Delete functionality***********************/
+ 
 
   if (deleteCheck) {
     const box = element.closest(".ticket-container");

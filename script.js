@@ -191,6 +191,7 @@ modalConatainer.addEventListener("keypress", (e) => {
   const textValue = modalConatainer.children[0].value;
 
   if (!textValue) {
+    creationMode = false;
     return;
   }
 

@@ -178,7 +178,6 @@ modalConatainer.addEventListener("click", (e) => {
 
 modalConatainer.addEventListener("keypress", (e) => {
   const element = e.target;
-  // ////console.log(e);
 
   if (e.key !== "Enter") {
     return;
@@ -212,7 +211,6 @@ mainContainer.addEventListener("click", (e) => {
    if (creationMode) {
     return;
   }
-  
   /**************handling Delete functionality***********************/
  
 
@@ -308,7 +306,6 @@ function ticketArrUpdater(tId, color, text) {
   for (let i = 0; i < ticketHolderArray.length; i++) {
     if (ticketHolderArray[i].ticketId === tId) {
       if (color !== undefined) {
-        console.log(color);
         ticketHolderArray[i].ticketColor = color;
       }
       if (text !== undefined) {
